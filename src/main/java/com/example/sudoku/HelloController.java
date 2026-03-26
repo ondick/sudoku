@@ -56,8 +56,8 @@ public class HelloController {
     private String[] getSubGrid(int startRow, int startCol) {
         String[] values = new String[SIZE];
         int index = 0;
-        for (int row = startRow; row < startRow + 1; row++) {
-            for (int col = startCol; col < startCol + 1; col++) {
+        for (int row = startRow; row < startRow + 3; row++) {
+            for (int col = startCol; col < startCol + 3; col++) {
                 values[index++] = cells[row][col].getText();
             }
         }
@@ -102,6 +102,7 @@ public class HelloController {
     protected void kontrola() {
         boolean sloupce = true;
         boolean radky = true;
+        boolean subgrid1 = true;
         for (int j = 0; j < SIZE; j++) {
             String[] radka = getRadku(j);
             if (getDuplicities(radka)) {
@@ -121,8 +122,12 @@ public class HelloController {
             }
         }
 
-        for (String s : getSubGrid(0, 0)) {
-            
+        for (int row = 0; row < SIZE; row+=3) {
+            for (int col = 0; col < SIZE; col+=3) {
+                if (getDuplicities(getSubGrid(row, col))) {
+                    subgrid1 = false;
+                }
+            }
         }
 
 
@@ -138,13 +143,26 @@ public class HelloController {
             alert.setHeaderText("DULEZITE UPOZORNENI");
             alert.setContentText("V sloupcich je chyba");
             alert.showAndWait();
-        } else if (!sloupce && !radky) {
+        } else if (!sloupce && !radky && !subgrid1) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("informace");
             alert.setHeaderText("DULEZITE UPOZORNENI");
-            alert.setContentText("V radkach i sloupcich je chyba");
+            alert.setContentText("Ve vsem je chyba");
             alert.showAndWait();
-        } else {
+        } else if (sloupce && radky && !subgrid1) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("informace");
+            alert.setHeaderText("DULEZITE UPOZORNENI");
+            alert.setContentText("V subgridu je chyba je chyba");
+            alert.showAndWait();
+        } else if (!sloupce && radky && !subgrid1) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("informace");
+            alert.setHeaderText("DULEZITE UPOZORNENI");
+            alert.setContentText("V subgridu a sloupci je chyba je chyba");
+            alert.showAndWait();
+
+        } else if (sloupce && radky && subgrid1) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("informace");
             alert.setHeaderText("DULEZITE UPOZORNENI");
@@ -157,6 +175,7 @@ public class HelloController {
     public void kontrolaZadani() {
         boolean sloupce = true;
         boolean radky = true;
+        boolean subgrid = true;
         for (int j = 0; j < SIZE; j++) {
             String[] radka = getRadku(j);
             if (getDupZadani(radka)) {
@@ -176,8 +195,12 @@ public class HelloController {
             }
         }
 
-        for (int j = 0; j < SIZE; j =j+3) {
-
+        for (int row = 0; row < SIZE; row+=3) {
+            for (int col = 0; col < SIZE; col+=3) {
+                if (getDupZadani(getSubGrid(row, col))) {
+                    subgrid = false;
+                }
+            }
         }
 
         if (sloupce && !radky) {
@@ -192,13 +215,20 @@ public class HelloController {
             alert.setHeaderText("DULEZITE UPOZORNENI");
             alert.setContentText("V sloupcich je chyba");
             alert.showAndWait();
-        } else if (!sloupce && !radky) {
+        } else if (!sloupce && !radky && !subgrid) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("informace");
             alert.setHeaderText("DULEZITE UPOZORNENI");
-            alert.setContentText("V radkach i sloupcich je chyba");
+            alert.setContentText("Ve vsem je chyba");
             alert.showAndWait();
-        } else {
+        } else if (sloupce && radky && !subgrid) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("informace");
+            alert.setHeaderText("DULEZITE UPOZORNENI");
+            alert.setContentText("V subgridu je chyba je chyba");
+            alert.showAndWait();
+        }
+        else if (sloupce && radky && subgrid) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("informace");
             alert.setHeaderText("DULEZITE UPOZORNENI");
