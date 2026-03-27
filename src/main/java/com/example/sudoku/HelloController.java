@@ -67,11 +67,15 @@ public class HelloController {
     protected boolean getDupZadani(String[] radka) {
         boolean[] seen = new boolean[SIZE+1];
         for (String s: radka) {
-            int num;
+            int num=0;
             try {
+                if (s.isEmpty()){
+                    continue;
+                }
                 num = Integer.parseInt(s);
+
             } catch (NumberFormatException e) {
-                return false;
+                System.err.println("ahoj");
             }
             if (num < 1 || num > 9) return true;
             if (seen[num]) return true;
@@ -131,13 +135,19 @@ public class HelloController {
         }
 
 
-        if (sloupce && !radky) {
+        if (sloupce && !radky && subgrid1) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("informace");
             alert.setHeaderText("DULEZITE UPOZORNENI");
             alert.setContentText("V radkach je chyba");
             alert.showAndWait();
-        } else if (!sloupce && radky) {
+        } else if (sloupce && radky && !subgrid1) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("informace");
+            alert.setHeaderText("DULEZITE UPOZORNENI");
+            alert.setContentText("V subgridech je chyba");
+            alert.showAndWait();}
+        else if (!sloupce && radky && subgrid1) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("informace");
             alert.setHeaderText("DULEZITE UPOZORNENI");
@@ -149,20 +159,34 @@ public class HelloController {
             alert.setHeaderText("DULEZITE UPOZORNENI");
             alert.setContentText("Ve vsem je chyba");
             alert.showAndWait();
-        } else if (sloupce && radky && !subgrid1) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("informace");
-            alert.setHeaderText("DULEZITE UPOZORNENI");
-            alert.setContentText("V subgridu je chyba je chyba");
-            alert.showAndWait();
-        } else if (!sloupce && radky && !subgrid1) {
+        }
+        else if (!sloupce && radky && !subgrid1) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("informace");
             alert.setHeaderText("DULEZITE UPOZORNENI");
             alert.setContentText("V subgridu a sloupci je chyba je chyba");
             alert.showAndWait();
 
-        } else if (sloupce && radky && subgrid1) {
+
+        }else if (!sloupce && !radky && subgrid1) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("informace");
+            alert.setHeaderText("DULEZITE UPOZORNENI");
+            alert.setContentText("V radkach a sloupci je chyba je chyba");
+            alert.showAndWait();
+
+
+        }else if (sloupce && !radky && !subgrid1) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("informace");
+            alert.setHeaderText("DULEZITE UPOZORNENI");
+            alert.setContentText("V subgridu a radce je chyba je chyba");
+            alert.showAndWait();
+
+
+        }
+
+        else if (sloupce && radky && subgrid1) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("informace");
             alert.setHeaderText("DULEZITE UPOZORNENI");
@@ -175,7 +199,7 @@ public class HelloController {
     public void kontrolaZadani() {
         boolean sloupce = true;
         boolean radky = true;
-        boolean subgrid = true;
+        boolean subgrid1 = true;
         for (int j = 0; j < SIZE; j++) {
             String[] radka = getRadku(j);
             if (getDupZadani(radka)) {
@@ -198,43 +222,68 @@ public class HelloController {
         for (int row = 0; row < SIZE; row+=3) {
             for (int col = 0; col < SIZE; col+=3) {
                 if (getDupZadani(getSubGrid(row, col))) {
-                    subgrid = false;
+                    subgrid1 = false;
                 }
             }
         }
 
-        if (sloupce && !radky) {
+        if (sloupce && !radky && subgrid1) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("informace");
             alert.setHeaderText("DULEZITE UPOZORNENI");
             alert.setContentText("V radkach je chyba");
             alert.showAndWait();
-        } else if (!sloupce && radky) {
+        } else if (sloupce && radky && !subgrid1) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("informace");
+            alert.setHeaderText("DULEZITE UPOZORNENI");
+            alert.setContentText("V subgridech je chyba");
+            alert.showAndWait();}
+        else if (!sloupce && radky && subgrid1) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("informace");
             alert.setHeaderText("DULEZITE UPOZORNENI");
             alert.setContentText("V sloupcich je chyba");
             alert.showAndWait();
-        } else if (!sloupce && !radky && !subgrid) {
+        } else if (!sloupce && !radky && !subgrid1) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("informace");
             alert.setHeaderText("DULEZITE UPOZORNENI");
             alert.setContentText("Ve vsem je chyba");
             alert.showAndWait();
-        } else if (sloupce && radky && !subgrid) {
+        }
+        else if (!sloupce && radky && !subgrid1) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("informace");
             alert.setHeaderText("DULEZITE UPOZORNENI");
-            alert.setContentText("V subgridu je chyba je chyba");
+            alert.setContentText("V subgridu a sloupci je chyba je chyba");
             alert.showAndWait();
+
+
+        }else if (!sloupce && !radky && subgrid1) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("informace");
+            alert.setHeaderText("DULEZITE UPOZORNENI");
+            alert.setContentText("V radkach a sloupci je chyba je chyba");
+            alert.showAndWait();
+
+
+        }else if (sloupce && !radky && !subgrid1) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("informace");
+            alert.setHeaderText("DULEZITE UPOZORNENI");
+            alert.setContentText("V subgridu a radce je chyba je chyba");
+            alert.showAndWait();
+
+
         }
-        else if (sloupce && radky && subgrid) {
+
+        else if (sloupce && radky && subgrid1) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("informace");
             alert.setHeaderText("DULEZITE UPOZORNENI");
             alert.setContentText("Vse je v poho");
             alert.showAndWait();
-
         }
     }
 
